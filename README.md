@@ -1,5 +1,8 @@
 # invites
 
+[![JSR](https://jsr.io/badges/@fartlabs/invites)](https://jsr.io/@fartlabs/invites)
+[![JSR Score](https://jsr.io/badges/@fartlabs/invites/score)](https://jsr.io/@fartlabs/invites)
+
 Standalone API, SDK, and web console for managing invite codes.
 
 ## Develop
@@ -25,7 +28,7 @@ navigating to your API's root URL (e.g., `http://localhost:8000/v1/invites`) in
 a web browser. The server will detect your browser's request for HTML and serve
 the console.
 
-![Invites Console Screenshot](https://github.com/user-attachments/assets/3d1cd62b-1c62-4f2c-9143-c5250cacaeb0)
+![Invites Console Screenshot](screenshot.png)
 
 ### Deployment
 

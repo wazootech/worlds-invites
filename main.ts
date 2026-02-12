@@ -22,7 +22,7 @@ export const router: Router = new Router()
     const url = new URL(ctx.request.url);
     const cursor = url.searchParams.get("cursor") ?? undefined;
     const limitString = url.searchParams.get("limit") ?? "20";
-    const reverseString = url.searchParams.get("reverse") ?? "false";
+    const reverseString = url.searchParams.get("reverse") ?? "true";
 
     const listParamsResult = listParamsSchema.safeParse({
       cursor,
@@ -157,6 +157,17 @@ export const router: Router = new Router()
 
     await invitesKv.deleteMany(body.codes);
     return new Response(null, { status: 204 });
+  })
+  .post("/v1/reindex", async (ctx) => {
+    const apiKey = Deno.env.get("API_KEY");
+    if (apiKey && ctx.request.headers.get("X-Api-Key") !== apiKey) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const count = await invitesKv.reindex();
+    return Response.json({
+      message: `Successfully reindexed ${count} invites.`,
+    });
   });
 
 const server: Deno.ServeDefaultExport = {

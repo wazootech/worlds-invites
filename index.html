@@ -15,6 +15,7 @@
       body {
         font-family: "Inter", sans-serif;
       }
+
       .glass {
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(10px);
@@ -66,7 +67,7 @@
       <main class="grid gap-6">
         <!-- Top Row: Config and Create -->
         <div class="grid md:grid-cols-2 gap-6">
-          <!-- Configuration Section -->
+          <!-- Connect Card -->
           <section
             class="glass p-6 rounded-2xl shadow-sm overflow-hidden border border-white/20"
           >
@@ -86,18 +87,15 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    <path
-                      d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
-                    />
-                    <circle cx="12" cy="12" r="3" />
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
                 </div>
-                Configuration
+                Connect API
               </h2>
             </div>
 
             <div class="space-y-6">
-              <!-- API Key Section -->
               <div>
                 <label
                   for="apiKey"
@@ -131,45 +129,12 @@
                 </div>
               </div>
 
-              <!-- Generation Defaults -->
-              <div class="pt-4 border-t border-slate-100/50">
-                <label
-                  class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 px-1"
-                >Generation Defaults</label>
-                <div class="grid grid-cols-2 gap-4">
-                  <div class="group">
-                    <label
-                      for="alphabet"
-                      class="block text-xs font-medium text-slate-500 mb-1.5 px-1"
-                    >Custom Alphabet</label>
-                    <input
-                      type="text"
-                      id="alphabet"
-                      placeholder="e.g. ABCDEF123"
-                      class="w-full px-4 py-2 bg-white/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-300"
-                    >
-                  </div>
-                  <div class="group">
-                    <label
-                      for="size"
-                      class="block text-xs font-medium text-slate-500 mb-1.5 px-1"
-                    >Length</label>
-                    <input
-                      type="number"
-                      id="size"
-                      placeholder="e.g. 10"
-                      class="w-full px-4 py-2 bg-white/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-300"
-                    >
-                  </div>
-                </div>
-              </div>
-
               <div class="pt-2">
                 <button
                   id="save-config"
-                  class="w-full px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 shadow-lg shadow-indigo-100 hover:shadow-indigo-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
+                  class="w-full px-6 py-3.5 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 shadow-lg shadow-indigo-100 hover:shadow-indigo-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
                 >
-                  Save Configuration
+                  Connect API
                   <svg
                     class="group-hover:translate-x-0.5 transition-transform"
                     xmlns="http://www.w3.org/2000/svg"
@@ -284,6 +249,171 @@
             </div>
           </section>
         </div>
+
+        <!-- Generation Configuration Card (Bottom Row) -->
+        <section
+          class="glass p-6 rounded-2xl shadow-sm border border-white/20 mb-6"
+        >
+          <div class="flex items-center justify-between mb-6">
+            <h2
+              class="text-lg font-semibold flex items-center gap-2 text-slate-800"
+            >
+              <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+                  />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              Generation Configuration
+            </h2>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div>
+                <label
+                  class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 px-1"
+                >Generation Defaults</label>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="group">
+                    <label
+                      for="alphabet"
+                      class="block text-xs font-medium text-slate-500 mb-1.5 px-1"
+                    >Custom Alphabet</label>
+                    <input
+                      type="text"
+                      id="alphabet"
+                      placeholder="e.g. ABCDEF123"
+                      class="w-full px-4 py-2.5 bg-white/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-300"
+                    >
+                  </div>
+                  <div class="group">
+                    <label
+                      for="size"
+                      class="block text-xs font-medium text-slate-500 mb-1.5 px-1"
+                    >Length</label>
+                    <input
+                      type="number"
+                      id="size"
+                      placeholder="e.g. 10"
+                      class="w-full px-4 py-2.5 bg-white/50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-300"
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4">
+                <p class="text-[11px] text-slate-400 font-medium px-4 mb-4">
+                  These settings define the format of randomly generated invite
+                  codes. You can also pick a preset below to quickly fill these
+                  fields.
+                </p>
+                <div id="status-storage" class="hidden"></div>
+              </div>
+            </div>
+
+            <div>
+              <label
+                class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 px-1"
+              >Presets</label>
+              <div class="grid grid-cols-1 gap-3">
+                <button
+                  type="button"
+                  class="preset-btn px-4 py-3 bg-white/50 border border-slate-200 rounded-xl text-sm text-slate-700 font-semibold hover:bg-slate-50 hover:border-indigo-200 transition-all active:scale-[0.98] text-left flex items-center justify-between group"
+                  data-alphabet="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                  data-size="4"
+                >
+                  <div class="flex flex-col">
+                    <span>Alphanumeric PIN</span>
+                    <span class="text-[11px] text-slate-400 font-normal"
+                    >A-Z, 0-9 (Size 4)</span>
+                  </div>
+                  <svg
+                    class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="preset-btn px-4 py-3 bg-white/50 border border-slate-200 rounded-xl text-sm text-slate-700 font-semibold hover:bg-slate-50 hover:border-indigo-200 transition-all active:scale-[0.98] text-left flex items-center justify-between group"
+                  data-alphabet="0123456789"
+                  data-size="4"
+                >
+                  <div class="flex flex-col">
+                    <span>Numeric PIN</span>
+                    <span class="text-[11px] text-slate-400 font-normal"
+                    >0-9 (Size 4)</span>
+                  </div>
+                  <svg
+                    class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="preset-btn px-4 py-3 bg-white/50 border border-slate-200 rounded-xl text-sm text-slate-700 font-semibold hover:bg-slate-50 hover:border-indigo-200 transition-all active:scale-[0.98] text-left flex items-center justify-between group"
+                  data-alphabet="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+                  data-size="21"
+                >
+                  <div class="flex flex-col">
+                    <span>Standard ID</span>
+                    <span class="text-[11px] text-slate-400 font-normal"
+                    >Base62 (Size 21)</span>
+                  </div>
+                  <svg
+                    class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <!-- Console Content (Full Width Table) -->
         <div
@@ -1042,6 +1172,28 @@
         elements.paginationControls.classList.remove("hidden");
         refreshInvites();
       };
+
+      // Generation Config Handlers
+      document.querySelectorAll(".preset-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const { alphabet, size } = btn.dataset;
+          elements.alphabet.value = alphabet;
+          elements.size.value = size;
+          localStorage.setItem("invites_alphabet", alphabet);
+          localStorage.setItem("invites_size", size);
+          showToast(
+            `Applied ${
+              btn.querySelector("span").textContent.trim()
+            } preset`,
+          );
+        });
+      });
+
+      [elements.alphabet, elements.size].forEach((input) => {
+        input.addEventListener("input", () => {
+          localStorage.setItem(`invites_${input.id}`, input.value);
+        });
+      });
 
       // Init
       window.onload = () => {
