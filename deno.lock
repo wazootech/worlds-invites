@@ -5,7 +5,9 @@
     "jsr:@fartlabs/jsonx@^0.0.11": "0.0.11",
     "jsr:@fartlabs/rt@^0.0.11": "0.0.11",
     "jsr:@fartlabs/rtx@^0.0.16": "0.0.16",
+    "jsr:@std/assert@^1.0.18": "1.0.18",
     "jsr:@std/http@^1.0.21": "1.0.24",
+    "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@std/ulid@0.224": "0.224.1",
     "npm:zod@^3.22.4": "3.25.76"
   },
@@ -33,8 +35,17 @@
         "jsr:@std/http"
       ]
     },
+    "@std/assert@1.0.18": {
+      "integrity": "270245e9c2c13b446286de475131dc688ca9abcd94fc5db41d43a219b34d1c78",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
     "@std/http@1.0.24": {
       "integrity": "4dd59afd7cfd6e2e96e175b67a5a829b449ae55f08575721ec691e5d85d886d4"
+    },
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
     },
     "@std/ulid@0.224.1": {
       "integrity": "4de06fdb030ff3990b1b0344e330373c11ce6051ac449fc435667a485a6723fa"
@@ -82,6 +93,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@fartlabs/rtx@^0.0.16",
+      "jsr:@std/assert@^1.0.18",
       "jsr:@std/ulid@0.224",
       "npm:zod@^3.22.4"
     ]

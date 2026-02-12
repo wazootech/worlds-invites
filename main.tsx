@@ -112,5 +112,5 @@ const router = (
 );
 
 export default {
-  fetch: router.fetch,
+  fetch: (req, info) => router.fetch(req, info),
 } satisfies Deno.ServeDefaultExport;
