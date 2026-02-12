@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invites Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 min-h-screen text-slate-900">
+    <div class="max-w-4xl mx-auto p-4 md:p-8">
+      <header
+        class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4"
+      >
+        <div>
+          <h1
+            class="text-3xl font-bold tracking-tight text-slate-900 flex items-center gap-2"
+          >
+            <span class="bg-indigo-600 text-white p-1 rounded-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <line x1="19" x2="19" y1="8" y2="14" />
+                <line x1="22" x2="16" y1="11" y2="11" />
+              </svg>
+            </span>
+            Invites Admin
+          </h1>
+          <p class="text-slate-500 mt-1">Manage your project invite codes</p>
+        </div>
+
+        <div
+          id="connection-status"
+          class="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-600"
+        >
+          <span class="w-2 h-2 rounded-full bg-slate-400 animate-pulse"></span>
+          Enter Configuration
+        </div>
+      </header>
+
+      <main class="grid gap-6">
+        <!-- Configuration Section -->
+        <section class="glass p-6 rounded-2xl shadow-sm overflow-hidden">
+          <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+              />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            Configuration
+          </h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label
+                for="apiKey"
+                class="block text-sm font-medium text-slate-700 mb-1"
+              >API Key (Optional)</label>
+              <input
+                type="password"
+                id="apiKey"
+                placeholder="Your secret API key"
+                class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              >
+            </div>
+          </div>
+          <div class="mt-4 flex justify-start">
+            <button
+              id="save-config"
+              class="px-6 py-2 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all flex items-center gap-2"
+            >
+              Connect API
+            </button>
+          </div>
+        </section>
+
+        <!-- Actions section -->
+        <div
+          id="dashboard-content"
+          class="opacity-50 pointer-events-none transition-opacity duration-300"
+        >
+          <div class="grid md:grid-cols-3 gap-6">
+            <!-- Create Invite Card -->
+            <div class="md:col-span-1">
+              <section class="glass p-6 rounded-2xl shadow-sm sticky top-8">
+                <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="M12 5v14" />
+                  </svg>
+                  Create Invite
+                </h2>
+                <div class="mb-4">
+                  <label
+                    for="customCode"
+                    class="block text-sm font-medium text-slate-700 mb-1"
+                  >Custom Code (Optional)</label>
+                  <input
+                    type="text"
+                    id="customCode"
+                    placeholder="leave blank for random"
+                    class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                  >
+                </div>
+                <button
+                  id="create-invite"
+                  class="w-full px-6 py-2.5 bg-slate-900 text-white rounded-xl font-medium hover:bg-slate-800 transition-all flex items-center justify-center gap-2 group"
+                >
+                  Generate
+                  <svg
+                    class="group-hover:translate-x-1 transition-transform"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </button>
+              </section>
+            </div>
+
+            <!-- Invites List Card -->
+            <div class="md:col-span-2">
+              <section class="glass p-6 rounded-2xl shadow-sm min-h-[400px]">
+                <div class="flex items-center justify-between mb-6">
+                  <h2 class="text-lg font-semibold flex items-center gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    Active Invites
+                  </h2>
+                  <button
+                    id="refresh-list"
+                    class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                    title="Refresh list"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"
+                      />
+                      <path d="M21 3v5h-5" />
+                      <path
+                        d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"
+                      />
+                      <path d="M3 21v-5h5" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div id="invites-container" class="space-y-3">
+                  <!-- Placeholders -->
+                  <div
+                    class="animate-pulse flex space-x-4 p-4 rounded-xl border border-slate-100"
+                  >
+                    <div class="flex-1 space-y-3 py-1">
+                      <div class="h-2 bg-slate-200 rounded"></div>
+                      <div class="grid grid-cols-3 gap-4">
+                        <div class="h-2 bg-slate-200 rounded col-span-2"></div>
+                        <div class="h-2 bg-slate-200 rounded col-span-1"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="animate-pulse flex space-x-4 p-4 rounded-xl border border-slate-100"
+                  >
+                    <div class="flex-1 space-y-3 py-1">
+                      <div class="h-2 bg-slate-200 rounded"></div>
+                      <div class="grid grid-cols-3 gap-4">
+                        <div class="h-2 bg-slate-200 rounded col-span-2"></div>
+                        <div class="h-2 bg-slate-200 rounded col-span-1"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="empty-state"
+                  class="hidden flex-col items-center justify-center py-12 text-slate-400"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="mb-3 opacity-20"
+                  >
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                    <path d="m9 16 2 2 4-4" />
+                  </svg>
+                  <p>No invites created yet</p>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="mt-12 text-center text-slate-400 text-sm">
+        Developed with 💖 <strong>@FartLabs</strong>
+      </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div
+      id="toast-container"
+      class="fixed bottom-6 right-6 z-50 flex flex-col gap-2"
+    >
+    </div>
+
+    <script>
+      // Simple SDK-like functions
+      class InvitesClient {
+        constructor(apiKey) {
+          this.baseUrl = window.location.origin;
+          this.apiKey = apiKey;
+        }
+
+        async fetch(path, options = {}) {
+          const url = `${this.baseUrl}${path}`;
+          const headers = { ...options.headers };
+          if (this.apiKey) {
+            headers["X-Api-Key"] = this.apiKey;
+          }
+
+          const response = await fetch(url, { ...options, headers });
+          if (!response.ok) {
+            const error = await response.json().catch(() => ({
+              error: response.statusText,
+            }));
+            throw new Error(error.error || `HTTP ${response.status}`);
+          }
+          return response.status === 204 ? null : response.json();
+        }
+
+        list() {
+          return this.fetch("/v1/invites");
+        }
+
+        create(code) {
+          return this.fetch("/v1/invites", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ code: code || undefined }),
+          });
+        }
+
+        delete(code) {
+          return this.fetch(`/v1/invites/${code}`, {
+            method: "DELETE",
+          });
+        }
+      }
+
+      // UI State
+      let client = null;
+      const elements = {
+        apiKey: document.getElementById("apiKey"),
+        saveConfig: document.getElementById("save-config"),
+        dashboardContent: document.getElementById("dashboard-content"),
+        invitesContainer: document.getElementById("invites-container"),
+        createInvite: document.getElementById("create-invite"),
+        customCode: document.getElementById("customCode"),
+        refreshList: document.getElementById("refresh-list"),
+        connectionStatus: document.getElementById("connection-status"),
+        emptyState: document.getElementById("empty-state"),
+        toastContainer: document.getElementById("toast-container"),
+      };
+
+      // UI Helpers
+      function showToast(message, type = "success") {
+        const toast = document.createElement("div");
+        toast.className =
+          `p-4 rounded-xl shadow-lg flex items-center gap-3 animate-slide-up border transition-all duration-300 ${
+            type === "success"
+              ? "bg-white text-indigo-900 border-indigo-100"
+              : "bg-red-50 text-red-900 border-red-100"
+          }`;
+
+        const icon = type === "success"
+          ? '<svg class="text-indigo-500" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>'
+          : '<svg class="text-red-500" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>';
+
+        toast.innerHTML =
+          `${icon} <span class="font-medium">${message}</span>`;
+        elements.toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+          toast.classList.add("opacity-0", "translate-y-2");
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      async function refreshInvites() {
+        if (!client) return;
+
+        elements.refreshList.classList.add("animate-spin");
+        try {
+          const { items } = await client.list();
+          renderInvites(items);
+        } catch (err) {
+          showToast(err.message, "error");
+        } finally {
+          elements.refreshList.classList.remove("animate-spin");
+        }
+      }
+
+      function renderInvites(invites) {
+        elements.invitesContainer.innerHTML = "";
+
+        if (!invites || invites.length === 0) {
+          elements.emptyState.classList.remove("hidden");
+          elements.emptyState.classList.add("flex");
+          return;
+        }
+
+        elements.emptyState.classList.add("hidden");
+        elements.emptyState.classList.remove("flex");
+
+        invites.forEach((invite) => {
+          const date = new Date(invite.createdAt).toLocaleString();
+          const card = document.createElement("div");
+          card.className =
+            "p-4 rounded-xl border border-slate-100 hover:border-indigo-100 hover:bg-white transition-all flex items-center justify-between group shadow-sm hover:shadow-md";
+          card.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono font-bold text-slate-900">${invite.code}</span>
+                            ${
+            invite.redeemedBy
+              ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-100 text-slate-500 tracking-wider">Redeemed</span>'
+              : '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-indigo-50 text-indigo-500 tracking-wider">Active</span>'
+          }
+                        </div>
+                        <div class="text-xs text-slate-400 mt-1">${date}</div>
+                    </div>
+                    <button class="delete-btn p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all opacity-0 group-hover:opacity-100" data-code="${invite.code}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                    </button>
+                `;
+
+          card.querySelector(".delete-btn").onclick = async (e) => {
+            const code = e.currentTarget.getAttribute("data-code");
+            if (!confirm(`Delete invite ${code}?`)) return;
+
+            try {
+              await client.delete(code);
+              showToast("Invite deleted");
+              refreshInvites();
+            } catch (err) {
+              showToast(err.message, "error");
+            }
+          };
+
+          elements.invitesContainer.appendChild(card);
+        });
+      }
+
+      // Event Handlers
+      elements.saveConfig.onclick = async () => {
+        const key = elements.apiKey.value.trim();
+
+        elements.saveConfig.disabled = true;
+        elements.saveConfig.innerHTML =
+          '<svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="transparent"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Connecting...';
+
+        client = new InvitesClient(key);
+
+        try {
+          // Test connection
+          await client.list();
+
+          elements.dashboardContent.classList.remove(
+            "opacity-50",
+            "pointer-events-none",
+          );
+          elements.connectionStatus.innerHTML =
+            '<span class="w-2 h-2 rounded-full bg-indigo-500"></span> Connected';
+          elements.connectionStatus.className =
+            "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium bg-indigo-50 text-indigo-700";
+
+          localStorage.setItem("invites_apiKey", key);
+
+          showToast("Successfully connected to API");
+          refreshInvites();
+        } catch (err) {
+          showToast("Failed to connect: " + err.message, "error");
+          elements.dashboardContent.classList.add(
+            "opacity-50",
+            "pointer-events-none",
+          );
+          elements.connectionStatus.innerHTML =
+            '<span class="w-2 h-2 rounded-full bg-red-400"></span> Connection Failed';
+          elements.connectionStatus.className =
+            "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium bg-red-50 text-red-600";
+        } finally {
+          elements.saveConfig.disabled = false;
+          elements.saveConfig.innerHTML = "Connect API";
+        }
+      };
+
+      elements.createInvite.onclick = async () => {
+        if (!client) return;
+
+        const code = elements.customCode.value.trim();
+        elements.createInvite.disabled = true;
+
+        try {
+          const invite = await client.create(code);
+          showToast(`Created invite: ${invite.code}`);
+          elements.customCode.value = "";
+          refreshInvites();
+        } catch (err) {
+          showToast(err.message, "error");
+        } finally {
+          elements.createInvite.disabled = false;
+        }
+      };
+
+      elements.refreshList.onclick = refreshInvites;
+
+      // Init
+      window.onload = () => {
+        const savedKey = localStorage.getItem("invites_apiKey");
+        if (savedKey) {
+          elements.apiKey.value = savedKey;
+          // Optionally auto-connect
+          elements.saveConfig.click();
+        }
+      };
+
+      // Add CSS animation for toasts
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes animate-slide-up {
+                0% { transform: translateY(20px); opacity: 0; }
+                100% { transform: translateY(0); opacity: 1; }
+            }
+            .animate-slide-up {
+                animation: animate-slide-up 0.3s ease-out forwards;
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

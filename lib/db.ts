@@ -1,5 +1,8 @@
 import type { Invite, ListParams } from "./schemas.ts";
 
+/**
+ * InvitesKv is a class that provides a simple API for managing invites.
+ */
 export class InvitesKv {
   public constructor(private readonly kv: Deno.Kv) {}
 

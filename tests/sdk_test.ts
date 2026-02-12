@@ -1,12 +1,12 @@
 import { assertEquals } from "@std/assert";
 import { InvitesSdk } from "#/lib/sdk.ts";
-import server from "#/main.tsx";
+import { router } from "#/main.ts";
 
 Deno.test("InvitesSdk - Integration", async (t) => {
   const sdk = new InvitesSdk({
     baseUrl: "http://localhost:8000",
     fetch: (input, init) =>
-      server.fetch(new Request(input, init), {} as Deno.ServeHandlerInfo),
+      router.fetch(new Request(input, init as RequestInit)),
   });
 
   await t.step("create", async () => {

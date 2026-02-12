@@ -21,7 +21,7 @@ export interface ListParams {
 /**
  * listParamsSchema is the schema for the list method.
  */
-export const listParamsSchema: z.ZodType<ListParams, z.ZodTypeDef, unknown> = z
+export const listParamsSchema: z.ZodType<ListParams> = z
   .object({
     cursor: z.string().optional(),
     limit: z.number().int().min(1).max(100).default(20),
@@ -41,11 +41,7 @@ export interface CreateInviteParams {
 /**
  * createInviteParamsSchema is the schema for the create method.
  */
-export const createInviteParamsSchema: z.ZodType<
-  CreateInviteParams,
-  z.ZodTypeDef,
-  unknown
-> = z.object(
+export const createInviteParamsSchema: z.ZodType<CreateInviteParams> = z.object(
   {
     code: z.string().optional(),
   },

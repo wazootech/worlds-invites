@@ -13,10 +13,17 @@ your system.
 
 Run the following commands to develop:
 
-- `deno task start`: Start the API server.
+- `deno task start`: Start the API server and admin dashboard.
 - `deno task test`: Run the tests.
 
 ## Usage
+
+### Admin Dashboard
+
+The admin dashboard is hosted directly by the API server. You can access it by
+navigating to your API's root URL (e.g., `http://localhost:8000/v1/invites`) in
+a web browser. The server will detect your browser's request for HTML and serve
+the dashboard.
 
 ### Deployment
 
