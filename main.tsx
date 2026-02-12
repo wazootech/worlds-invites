@@ -6,7 +6,8 @@ import { createInviteParamsSchema, listParamsSchema } from "./lib/schemas.ts";
 const kv = await Deno.openKv();
 const invitesKv = new InvitesKv(kv);
 
-const router = (
+// deno-lint-ignore no-explicit-any
+const router: any = (
   <Router>
     <Get
       pattern="/v1/invites"
@@ -129,6 +130,8 @@ const router = (
   </Router>
 );
 
-export default {
+const server: Deno.ServeDefaultExport = {
   fetch: (req, info) => router.fetch(req, info),
-} satisfies Deno.ServeDefaultExport;
+};
+
+export default server;

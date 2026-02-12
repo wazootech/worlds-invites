@@ -2,7 +2,8 @@
   "name": "@fartlabs/invites",
   "version": "0.0.1",
   "exports": {
-    ".": "./lib/sdk.ts",
+    ".": "./main.tsx",
+    "./sdk": "./lib/sdk.ts",
     "./schema": "./lib/schemas.ts"
   },
   "tasks": {
