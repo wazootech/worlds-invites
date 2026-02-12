@@ -10,6 +10,11 @@ export interface InvitesSdkOptions {
   baseUrl: string;
 
   /**
+   * Optional API key for authentication.
+   */
+  apiKey?: string;
+
+  /**
    * Optional custom fetch function.
    */
   fetch?: typeof fetch;
@@ -20,10 +25,12 @@ export interface InvitesSdkOptions {
  */
 export class InvitesSdk {
   private readonly baseUrl: string;
+  private readonly apiKey?: string;
   private readonly fetch: typeof fetch;
 
   public constructor(options: InvitesSdkOptions) {
     this.baseUrl = options.baseUrl.replace(/\/$/, "");
+    this.apiKey = options.apiKey;
     this.fetch = options.fetch ?? globalThis.fetch.bind(globalThis);
   }
 
@@ -41,7 +48,12 @@ export class InvitesSdk {
     url.searchParams.set("limit", params.limit.toString());
     url.searchParams.set("reverse", params.reverse.toString());
 
-    const response = await this.fetch(url);
+    const headers: Record<string, string> = {};
+    if (this.apiKey) {
+      headers["X-Api-Key"] = this.apiKey;
+    }
+
+    const response = await this.fetch(url, { headers });
     if (!response.ok) {
       throw new Error(`Failed to list invites: ${response.statusText}`);
     }
@@ -54,11 +66,16 @@ export class InvitesSdk {
    */
   async create(params: CreateInviteParams = {}): Promise<Invite> {
     const url = new URL(`${this.baseUrl}/v1/invites`);
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (this.apiKey) {
+      headers["X-Api-Key"] = this.apiKey;
+    }
+
     const response = await this.fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify(params),
     });
 
@@ -74,7 +91,12 @@ export class InvitesSdk {
    */
   async get(code: string): Promise<Invite> {
     const url = new URL(`${this.baseUrl}/v1/invites/${code}`);
-    const response = await this.fetch(url);
+    const headers: Record<string, string> = {};
+    if (this.apiKey) {
+      headers["X-Api-Key"] = this.apiKey;
+    }
+
+    const response = await this.fetch(url, { headers });
     if (!response.ok) {
       throw new Error(`Failed to get invite: ${response.statusText}`);
     }
@@ -87,8 +109,14 @@ export class InvitesSdk {
    */
   async delete(code: string): Promise<void> {
     const url = new URL(`${this.baseUrl}/v1/invites/${code}`);
+    const headers: Record<string, string> = {};
+    if (this.apiKey) {
+      headers["X-Api-Key"] = this.apiKey;
+    }
+
     const response = await this.fetch(url, {
       method: "DELETE",
+      headers,
     });
 
     if (!response.ok) {

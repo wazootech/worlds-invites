@@ -1,4 +1,10 @@
 {
+  "name": "@fartlabs/invites",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./lib/sdk.ts",
+    "./schema": "./lib/schemas.ts"
+  },
   "tasks": {
     "start": "deno serve -A --unstable-kv main.tsx",
     "test": "deno test -A --unstable-kv tests/"

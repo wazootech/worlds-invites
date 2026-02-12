@@ -11,6 +11,11 @@ const router = (
     <Get
       pattern="/v1/invites"
       handler={async (ctx) => {
+        const apiKey = Deno.env.get("API_KEY");
+        if (apiKey && ctx.request.headers.get("X-Api-Key") !== apiKey) {
+          return Response.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const url = new URL(ctx.request.url);
         const cursor = url.searchParams.get("cursor") ?? undefined;
         const limitString = url.searchParams.get("limit") ?? "20";
@@ -46,6 +51,11 @@ const router = (
     <Post
       pattern="/v1/invites"
       handler={async (ctx) => {
+        const apiKey = Deno.env.get("API_KEY");
+        if (apiKey && ctx.request.headers.get("X-Api-Key") !== apiKey) {
+          return Response.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         let body = {};
         try {
           body = await ctx.request.json();
@@ -77,7 +87,11 @@ const router = (
     <Get
       pattern="/v1/invites/:code"
       handler={async (ctx) => {
-        // @ts-ignore: types are a bit loose with rtx/rt
+        const apiKey = Deno.env.get("API_KEY");
+        if (apiKey && ctx.request.headers.get("X-Api-Key") !== apiKey) {
+          return Response.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const code = ctx.params?.pathname.groups.code;
         if (!code) {
           return Response.json({ error: "Invite code required" }, {
@@ -96,7 +110,11 @@ const router = (
     <Delete
       pattern="/v1/invites/:code"
       handler={async (ctx) => {
-        // @ts-ignore: types are a bit loose with rtx/rt
+        const apiKey = Deno.env.get("API_KEY");
+        if (apiKey && ctx.request.headers.get("X-Api-Key") !== apiKey) {
+          return Response.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const code = ctx.params?.pathname.groups.code;
         if (!code) {
           return Response.json({ error: "Invite code required" }, {
